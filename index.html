@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Interactive Banker's Algorithm simulator for Operating Systems learning.">
+  <title>Banker's Algorithm Simulator | OS Mini Project</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="hero">
+    <div class="hero-inner">
+      <div class="eyebrow">OPERATING SYSTEMS · MINI PROJECT</div>
+      <h1>Banker's Algorithm <span>Simulator</span></h1>
+      <p>Explore safe states, resource allocation, and deadlock avoidance with an interactive simulation.</p>
+      <div class="hero-meta"><span>Alard University</span><span>·</span><span>Second-Year CSE</span></div>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="panel intro-panel">
+      <div>
+        <h2>System Configuration</h2>
+        <p class="muted">Choose the number of processes and resource types, then enter the system matrices.</p>
+      </div>
+      <div class="config-row">
+        <label>Processes
+          <input id="processCount" type="number" min="1" max="8" value="5">
+        </label>
+        <label>Resource types
+          <input id="resourceCount" type="number" min="1" max="5" value="3">
+        </label>
+        <button id="generateBtn" class="btn btn-primary">Generate Matrices</button>
+        <button id="sampleBtn" class="btn btn-secondary">Load Sample</button>
+      </div>
+    </section>
+
+    <div id="message" class="message" role="status" aria-live="polite"></div>
+
+    <section class="matrix-grid">
+      <article class="panel">
+        <div class="panel-heading"><h2>Allocation Matrix</h2><span class="tag">Currently allocated</span></div>
+        <div id="allocationMatrix" class="table-wrap"></div>
+      </article>
+      <article class="panel">
+        <div class="panel-heading"><h2>Maximum Matrix</h2><span class="tag">Maximum demand</span></div>
+        <div id="maximumMatrix" class="table-wrap"></div>
+      </article>
+    </section>
+
+    <section class="panel">
+      <div class="panel-heading"><h2>Available Resources</h2><span class="tag">Currently free</span></div>
+      <div id="availableInputs" class="available-inputs"></div>
+      <div class="actions">
+        <button id="calculateBtn" class="btn btn-primary">Check Safety</button>
+        <button id="resetBtn" class="btn btn-ghost">Reset to Sample</button>
+      </div>
+    </section>
+
+    <section id="resultsSection" class="panel results-panel" hidden>
+      <div class="panel-heading"><h2>Simulation Results</h2><span id="stateBadge" class="state-badge">Not checked</span></div>
+      <div class="summary-grid">
+        <div class="summary-card"><span class="summary-label">System State</span><strong id="stateValue">—</strong></div>
+        <div class="summary-card"><span class="summary-label">Safe Sequence</span><strong id="sequenceValue">—</strong></div>
+        <div class="summary-card"><span class="summary-label">Processes Completed</span><strong id="completedValue">—</strong></div>
+      </div>
+      <h3>Need Matrix <small>(Maximum − Allocation)</small></h3>
+      <div id="needMatrix" class="table-wrap"></div>
+      <h3>Safety Algorithm Steps</h3>
+      <div id="stepsTable" class="table-wrap"></div>
+      <p id="resultExplanation" class="result-explanation"></p>
+    </section>
+
+    <section class="panel learning-panel">
+      <h2>How it works</h2>
+      <div class="learning-grid">
+        <div><h3>1. Calculate Need</h3><p>For each process and resource, <code>Need = Maximum − Allocation</code>.</p></div>
+        <div><h3>2. Find an executable process</h3><p>A process can finish when its remaining Need is less than or equal to the current Work vector.</p></div>
+        <div><h3>3. Release resources</h3><p>When a process finishes, its allocated resources are added back to Work.</p></div>
+        <div><h3>4. Decide safety</h3><p>If all processes can finish, the state is safe. Otherwise, no safe sequence was found.</p></div>
+      </div>
+      <p class="muted note">Educational simulator only. It models the Banker's safety algorithm; it does not control real operating-system resources.</p>
+    </section>
+  </main>
+  <footer><span>Banker's Algorithm Simulator</span><span>Alard University · CSE</span></footer>
+  <script src="script.js"></script>
+</body>
+</html>
